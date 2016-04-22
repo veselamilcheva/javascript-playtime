@@ -1,0 +1,42 @@
+// 1,234,234
+// 12,234,234
+// 112,234,234
+// 1
+// 123
+// 1,123
+var start = new Date().getTime();
+
+function myformat (a) {
+    
+    var str =  a.toString();
+    var buffer = "";
+    var print_len = str.length%3;
+
+    if (str.length%3 == 0) {
+        print_len = 3;
+    }
+    buffer += str.substr(0, print_len);
+    if (str.length > 3) {
+        buffer += "," + myformat(str.substr(print_len));
+    }
+    return buffer;
+};
+
+console.log(myformat(887779999999999999));
+
+var end = new Date().getTime();
+var time = end - start;
+console.log('Execution time: ' + time);
+
+start = new Date().getTime();
+
+Number.prototype.format = function(){
+   return this.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+};
+
+var num = 887779999999999999;
+console.log(num.format());
+
+end = new Date().getTime();
+time = end - start;
+console.log('Execution time: ' + time);
