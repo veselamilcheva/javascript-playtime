@@ -1,0 +1,49 @@
+var Counter = function (max_visits, max_wait, start_date) {
+    var that = this;
+    this.visitor = 0;
+
+    this.print = function () {
+        console.log(that.myformat(that.visitor));
+        //$('#mycounter').text(that.visitor);
+        return that;
+    };
+    this.increment = function () {
+        that.visitor += that.random(1, max_visits);
+        that.print();
+        return that;
+    };
+    this.reset = function () {
+        var timestamp = Number(new Date());
+        var timestamp_start = Number(new Date(start_date));
+        var diff = parseInt(((timestamp - timestamp_start) / 2)).toString();
+        that.visitor = parseInt(diff.substring(0, diff.length - 3));
+        return that;
+    };
+    this.random = function (min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    };
+    this.myformat = function (a) {
+        var str =  a.toString();
+        var buffer = "";
+        var print_len = str.length%3;
+
+        if (str.length%3 === 0) {
+            print_len = 3;
+        }
+        buffer += str.substr(0, print_len);
+        if (str.length > 3) {
+            buffer += "," + that.myformat(str.substr(print_len));
+        }
+        return buffer;
+    };
+    this.run = function () {
+        that.increment();
+        //setTimeout(that.run, that.random(1000, max_wait));
+        return that;
+    };
+
+    this.reset();
+
+};
+
+new Counter(3, 8000, '2013-01-01T14:48:00').run();
