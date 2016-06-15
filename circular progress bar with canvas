@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        .canvas {
+             -ms-transform: rotate(-90deg); /* IE 9 */
+            -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+            transform: rotate(-90deg);
+        }
+        .canvas2 {
+            position: absolute;
+            left: 8px;
+            top: 8px;
+        }
+    </style>
+</head>
+<body>
+  <canvas id="myCanvas" width="300" height="300" class = "canvas"></canvas>
+  <canvas id="myCanvas2" width="270" height="270" class="canvas2"></canvas>
+  <button>Next</button>
+<script>
+function myFunction2() {
+    var c2 = document.getElementById("myCanvas2");
+    var ctx2 = c2.getContext("2d");
+    ctx2.strokeStyle="#999";
+    ctx2.beginPath();    
+    ctx2.lineWidth=2;
+    ctx2.arc(150,150,112,0,2*Math.PI);
+    ctx2.stroke();
+}
+function myFunction(step) {
+    var temp = function() {
+        console.log(step);
+        var c = document.getElementById("myCanvas");
+        var ctx = c.getContext("2d");
+        ctx.strokeStyle="#FD7D12";
+        ctx.beginPath();    
+        ctx.lineWidth=15;
+        ctx.arc(150,150,105,step,2*Math.PI);
+        ctx.stroke();
+    };
+
+    setTimeout(temp, (7 - step) * 120);
+}
+
+ /*for (var i = 6; i >= 0; i--) {      
+     myFunction(i);
+     }*/
+    var clicks = 0;
+    var button = document.querySelector("button");
+    button.addEventListener("click", function() {
+        for (var i = 6 - clicks; i >= 5 - clicks; i=i-0.1) {      
+            myFunction(i);
+        }
+        ++clicks;
+    });
+    myFunction2();
+
+</script>  
+</body>
+</html>
